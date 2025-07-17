@@ -10,5 +10,5 @@ import com.dw.factura.entity.DetalleFactura;
 @Repository
 public interface DetalleFacturaRepository extends JpaRepository<DetalleFactura, Integer> {
 
-    List<DetalleFactura> findByFacturaId(Integer facturaId);
+    List<DetalleFactura> findByIdFactura(Integer idFactura);
 }

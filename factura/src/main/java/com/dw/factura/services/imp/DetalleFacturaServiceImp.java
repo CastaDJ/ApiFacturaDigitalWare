@@ -18,7 +18,7 @@ public class DetalleFacturaServiceImp implements DetalleFacturaService {
     @Override
     public List<DetalleFactura> getAllById(Integer id) {
         try {
-            return detalleFacturaRepository.findByFacturaId(id);
+            return detalleFacturaRepository.findByIdFactura(id);
         } catch (Exception e) {
             throw new RuntimeException("Error retrieving details for factura ID: " + id, e);
         }

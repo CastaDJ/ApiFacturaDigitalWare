@@ -1,5 +1,6 @@
 package com.dw.factura.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,10 @@ public class Controller {
     @PostMapping("/create")
     public ResponseEntity<Factura> createFactura(@RequestBody Factura factura) {
         try {
+            if (factura.getFechaEmision() == null) {
+                factura.setFechaEmision(new Date());
+            }
+            factura.setFechaEmision(new Date());
             Factura createdFactura = facturaService.createFactura(factura);
             return ResponseEntity.status(201).body(createdFactura);
         } catch (Exception e) {

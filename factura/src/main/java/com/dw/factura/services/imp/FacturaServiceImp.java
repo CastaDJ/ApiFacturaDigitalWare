@@ -6,18 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dw.factura.entity.Factura;
+import com.dw.factura.repositories.FacturaRepository;
 import com.dw.factura.services.FacturaService;
 
 @Service
 public class FacturaServiceImp implements FacturaService {
 
     @Autowired
-    private FacturaService facturaService;
+    private FacturaRepository facturaRepository;
 
     @Override
     public List<Factura> getAllFacturas() {
         try {
-            return facturaService.getAllFacturas();
+            return facturaRepository.findAll();
         } catch (Exception e) {
             throw new RuntimeException("Error retrieving all facturas", e);
         }
@@ -26,7 +27,7 @@ public class FacturaServiceImp implements FacturaService {
     @Override
     public Factura getFacturaById(Integer id) {
         try {
-            return facturaService.getFacturaById(id);
+            return facturaRepository.getReferenceById(id);
         } catch (Exception e) {
             throw new RuntimeException("Error retrieving factura by ID: " + id, e);
         }
@@ -35,7 +36,7 @@ public class FacturaServiceImp implements FacturaService {
     @Override
     public Factura createFactura(Factura factura) {
         try {
-            return facturaService.createFactura(factura);
+            return facturaRepository.save(factura);
         } catch (Exception e) {
             throw new RuntimeException("Error creating factura", e);
         }
@@ -44,7 +45,8 @@ public class FacturaServiceImp implements FacturaService {
     @Override
     public Factura updateFactura(Integer id, Factura factura) {
         try {
-            return facturaService.updateFactura(id, factura);
+            factura.setIdFactura(id);
+            return facturaRepository.save(factura);
         } catch (Exception e) {
             throw new RuntimeException("Error updating factura with ID: " + id, e);
         }
@@ -53,7 +55,7 @@ public class FacturaServiceImp implements FacturaService {
     @Override
     public void deleteFactura(Integer id) {
         try {
-            facturaService.deleteFactura(id);
+            facturaRepository.deleteById(id);
         } catch (Exception e) {
             throw new RuntimeException("Error deleting factura with ID: " + id, e);
         }
